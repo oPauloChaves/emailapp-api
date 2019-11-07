@@ -31,9 +31,5 @@ node_modules
 
 coverage
 
-/db/data/*
-!/db/data/.keep
-/db/migrations/*
-!/db/migrations/.keep
-/db/seeds/*
-!/db/seeds/.keep
+/src/data/*
+!/src/data/.keep

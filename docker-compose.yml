@@ -22,12 +22,10 @@ services:
     ports:
       - "3000:3000"
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
-      - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
+      - "127.0.0.1:9230:9230" # V8 inspector for src/start.js
     volumes:
       - yarn:/home/node/.cache/yarn
-      - ./db:/usr/src/app/db
-      - ./server:/usr/src/app/server
-      - ./config:/usr/src/app/config
+      - ./src:/usr/src/app/src
       - ./package.json:/usr/src/app/package.json
       - ./yarn.lock:/usr/src/app/yarn.lock
       - ./.eslintrc:/usr/src/app/.eslintrc

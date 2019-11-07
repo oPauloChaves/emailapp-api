@@ -29,9 +29,7 @@ RUN set -ex; \
 
 # Copy application files
 COPY knexfile.js ./
-COPY config ./config
-COPY db ./db/
-COPY server ./server/
+COPY src ./src/
 
 # Run the container under "node" user by default
 USER node
