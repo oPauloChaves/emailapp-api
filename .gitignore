@@ -25,7 +25,15 @@ node_modules
 .tern-port
 
 # local .env* files
+.env
 .env.local
 .env.*.local
 
 coverage
+
+/db/data/*
+!/db/data/.keep
+/db/migrations/*
+!/db/migrations/.keep
+/db/seeds/*
+!/db/seeds/.keep
