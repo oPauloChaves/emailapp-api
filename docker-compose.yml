@@ -7,6 +7,36 @@ services:
       - 5432:5432
     volumes:
       - pg-data:/var/lib/postgresql/data
+      - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+  api:
+    build:
+      context: ./
+      args:
+        NODE_ENV: development
+    depends_on:
+      - db
+    environment:
+      - CORS_ORIGIN=http://localhost:3000,http://localhost:3001
+      - DATABASE_URL=postgres://postgres@db:5432/thynances_dev
+      - DATABASE_DEBUG=false
+    ports:
+      - "3000:3000"
+      - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
+      - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
+    volumes:
+      - yarn:/home/node/.cache/yarn
+      - ./db:/usr/src/app/db
+      - ./server:/usr/src/app/server
+      - ./config:/usr/src/app/config
+      - ./package.json:/usr/src/app/package.json
+      - ./yarn.lock:/usr/src/app/yarn.lock
+      - ./.eslintrc:/usr/src/app/.eslintrc
+      - ./.gitignore:/usr/src/app/.gitignore
+      - ./.editorconfig:/usr/src/app/.editorconfig
+      - ./jsconfig.json:/usr/src/app/jsconfig.json
+      - ./knexfile.js:/usr/src/app/knexfile.js
+    command: yarn run dev
+
   # redis:
   #   image: redis:5.0-alpine
   #   command: ["redis-server", "--appendonly", "yes"]
@@ -17,4 +47,5 @@ services:
 
 volumes:
   pg-data:
+  yarn:
   # redis-data:

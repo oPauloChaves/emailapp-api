@@ -14,7 +14,7 @@ const options = {
   seeds: {
     directory: `${__dirname}/db/seeds`
   },
-  debug: false,
+  debug: config.db.debug,
   useNullAsDefault: config.db.client === 'sqlite3'
 };
 

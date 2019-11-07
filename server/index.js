@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.disable('x-powered-by');
 
-app.use('/', async (_req, res) => {
+app.use('/api/users', async (_req, res) => {
   try {
     const users = await db('users').select('id', 'email', 'username', 'image');
 

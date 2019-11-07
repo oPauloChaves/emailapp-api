@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/start.js",
-    "dev": "nodemon server/start.js"
+    "dev": "nodemon server/start.js",
+    "migrate:latest": "knex migrate:latest",
+    "seed:run": "knex seed:run"
   },
   "keywords": [],
   "license": "ISC",

@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
@@ -23,6 +23,7 @@ RUN set -ex; \
   else \
   touch yarn-error.log; \
   mkdir -p -m 777 node_modules /home/node/.cache/yarn; \
+  yarn; \
   chown -R node:node node_modules package.json yarn.lock yarn-error.log /home/node/.cache/yarn; \
   fi;
 
@@ -35,4 +36,6 @@ COPY server ./server/
 # Run the container under "node" user by default
 USER node
 
-CMD [ "node", "server/start.js" ]
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
