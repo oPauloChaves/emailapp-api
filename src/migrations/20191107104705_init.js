@@ -3,7 +3,7 @@ module.exports.up = async db => {
   await db.schema.createTable('users', table => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.string('email').unique().notNullable();
-    table.string('username').unique().notNullable();
+    table.string('name').notNullable();
     table.string('image').defaultTo('');
     table.string('password').notNullable();
     table.timestamps(false, true);
@@ -57,8 +57,8 @@ module.exports.up = async db => {
     table.boolean('paid').notNullable().defaultTo(true);
     table.string('note');
     table.timestamp('remind_at');
-    table.string('sequence').notNullable().defaultTo(0);
-    table.string('total_sequence').notNullable().defaultTo(0);
+    table.integer('sequence').notNullable().defaultTo(0);
+    table.integer('total_sequence').notNullable().defaultTo(0);
     table.uuid('category_id').notNullable().references('id').inTable('categories');
     table.uuid('finance_account_id').notNullable().references('id').inTable('finance_accounts');
     table.uuid('from_finance_account_id').references('id').inTable('finance_accounts');
