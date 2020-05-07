@@ -16,7 +16,7 @@ function getUsers() {
   return users.map(u => ({
     id: u.id,
     email: u.email || `${u.name}@deme.com`,
-    username: u.name,
+    name: u.name,
     password: bcrypt.hashSync('X12345678', 10),
     image: faker.image.avatar(),
     created_at: new Date().toISOString(),

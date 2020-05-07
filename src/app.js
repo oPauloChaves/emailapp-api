@@ -10,7 +10,7 @@ app.disable('x-powered-by');
 
 app.use('/api/users', async (_req, res) => {
   try {
-    const users = await db('users').select('id', 'email', 'username', 'image');
+    const users = await db('users').select('id', 'email', 'name', 'image');
 
     res.json(users);
   } catch (err) {
