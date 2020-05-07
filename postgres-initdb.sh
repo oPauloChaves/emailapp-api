@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-  CREATE DATABASE "thynances_dev";
-  CREATE DATABASE "thynances_test";
+  CREATE DATABASE "emailapp_dev";
+  CREATE DATABASE "emailapp_test";
 EOSQL
 
 psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=emailapp_dev <<-EOSQL

@@ -1,13 +1,36 @@
-version: '3'
+version: '3.5'
 
 services:
   db:
     image: "postgres:12-alpine"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      PGDATA: /data/postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      - pg-data:/data/postgres
       - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pg@admin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    depends_on:
+      - db
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
   api:
     build:
       context: ./
@@ -17,8 +40,10 @@ services:
       - db
     environment:
       - CORS_ORIGIN=http://localhost:3000,http://localhost:3001
-      - DATABASE_URL=postgres://postgres@db:5432/emailapp_dev
+      - DATABASE_URL=postgres://postgres:secret@db:5432/emailapp_dev
       - DATABASE_DEBUG=false
+    networks:
+      - postgres
     ports:
       - "3000:3000"
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
@@ -39,11 +64,21 @@ services:
   #   image: redis:5.0-alpine
   #   command: ["redis-server", "--appendonly", "yes"]
   #   ports:
-  #     - 6379:6379
+  #     - "6379:6379"
   #   volumes:
   #     - redis-data:/data
+  #   networks:
+  #     - redis
+  #   restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+  # redis:
+  #   driver: bridge
 
 volumes:
   pg-data:
+  pgadmin:
   yarn:
   # redis-data:
