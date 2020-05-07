@@ -6,6 +6,6 @@ module.exports = {
   db: {
     client: process.env.DB_CLIENT || 'pg',
     url: process.env.DATABASE_URL || 'postgres://localhost:5432/emailapp_dev',
-    debug: process.env.DATABASE_DEBUG === 'true'
-  }
+    debug: process.env.DATABASE_DEBUG === 'true',
+  },
 };
