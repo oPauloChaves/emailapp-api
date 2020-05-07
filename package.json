@@ -1,7 +1,7 @@
 {
-  "name": "thynances-api",
+  "name": "email-api",
   "version": "0.1.0",
-  "description": "REST API for the Thynances Personal Finances App",
+  "description": "REST API for the Email App",
   "main": "src/index.js",
   "author": "Paulo Chaves <opaulochaves@gmail.com>",
   "scripts": {
@@ -12,7 +12,7 @@
     "seed:run": "knex seed:run"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
