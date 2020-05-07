@@ -38,16 +38,18 @@ function getUsers() {
 exports.getUsers = getUsers;
 
 exports.seed = async function (knex) {
-  if (process.env.NODE_ENV === 'production') {
-    await knex('users')
-      .whereIn(
-        'email',
-        users.map((u) => u.email || `${u.name}@demo.com`),
-      )
-      .del();
-  } else {
-    await knex('users').del();
-  }
+  // TODO fix this to only del demo users if run in prod
+  // if (process.env.NODE_ENV === 'production') {
+  //   await knex('users')
+  //     .whereIn(
+  //       'email',
+  //       users.map((u) => u.email || `${u.name}@demo.com`),
+  //     )
+  //     .del();
+  // } else {
+  //   await knex('users').del();
+  // }
 
+  await knex('users').del();
   return knex('users').insert(getUsers());
 };
