@@ -36,11 +36,12 @@
     "eslint-plugin-standard": "^4.0.1",
     "faker": "^4.1.0",
     "nodemon": "^1.19.4",
-    "prettier": "^1.18.2"
+    "prettier": "^2.0.5"
   },
   "prettier": {
     "singleQuote": true,
-    "width": 100
+    "printWidth": 100,
+    "trailingComma": "all"
   },
   "engines": {
     "node": ">= 10.0.0"
