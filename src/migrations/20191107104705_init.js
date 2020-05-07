@@ -1,6 +1,5 @@
-// prettier-ignore
-module.exports.up = async db => {
-  await db.schema.createTable('users', table => {
+module.exports.up = async (db) => {
+  await db.schema.createTable('users', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.string('email').unique().notNullable();
     table.string('name').notNullable();
@@ -10,6 +9,6 @@ module.exports.up = async db => {
   });
 };
 
-module.exports.down = async db => {
+module.exports.down = async (db) => {
   await db.schema.dropTableIfExists('users');
 };
