@@ -29,4 +29,22 @@ app.get('/contacts', async (req, res) => {
   }
 });
 
+app.get('/messages', async (req, res) => {
+  try {
+    const { important } = req.query;
+
+    console.log('[messages][get] query messages %j', { important: important !== undefined });
+
+    const messages = await db('messages')
+      .where('important', '=', important !== undefined)
+      .select('id', 'to', 'subject', 'body');
+
+    console.log('[messages][get] found %d messages', messages.length);
+
+    return res.json(messages);
+  } catch (err) {
+    res.status(500).json({ err: `ERROR: ${err}` });
+  }
+});
+
 module.exports = app;
